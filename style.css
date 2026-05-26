@@ -1,0 +1,501 @@
+:root {
+  --ink: #49365f;
+  --ink-soft: #6c587d;
+  --glow: rgba(255, 245, 210, 0.84);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: #fff8f2;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  background:
+    radial-gradient(circle at 20% 14%, rgba(255, 255, 255, 0.96), transparent 28%),
+    radial-gradient(circle at 78% 12%, rgba(235, 232, 255, 0.66), transparent 30%),
+    linear-gradient(135deg, #fffaf4 0%, #f7edf7 48%, #fff1e4 100%);
+}
+
+body:has(.world-view.is-active) {
+  overflow: hidden;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+.portal {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: clamp(10px, 2.4vw, 28px);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.visual-portal {
+  width: min(100%, 1180px);
+}
+
+.art-frame {
+  position: relative;
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  aspect-ratio: 1004 / 768;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff7f0;
+  box-shadow:
+    0 24px 60px rgba(92, 69, 102, 0.18),
+    0 0 0 1px rgba(229, 197, 151, 0.38);
+}
+
+.art-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 55px rgba(255, 255, 255, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.44);
+}
+
+.main-visual {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  background: #fff7f0;
+}
+
+.book-hotspots {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.top-link-hotspots {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.top-link {
+  position: absolute;
+  top: 3.2%;
+  height: 5%;
+  border-radius: 999px;
+  pointer-events: auto;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.top-link:hover,
+.top-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 18px rgba(255, 231, 170, 0.56), inset 0 0 0 1px rgba(255, 238, 188, 0.48);
+}
+
+.top-link-profile { left: 59.2%; width: 10.4%; }
+.top-link-works { left: 70.2%; width: 6.5%; }
+.top-link-play { left: 77.5%; width: 9.5%; }
+.top-link-line { left: 88.0%; width: 10.2%; }
+
+.book-hotspot {
+  position: absolute;
+  top: 38.2%;
+  width: 9.8%;
+  height: 33.8%;
+  border: 0;
+  border-radius: 10px;
+  padding: 0;
+  color: transparent;
+  background: transparent;
+  cursor: pointer;
+}
+
+.book-hotspot::before {
+  content: "";
+  position: absolute;
+  inset: -8px -6px;
+  border: 1px solid rgba(255, 226, 151, 0);
+  border-radius: 18px;
+  opacity: 0;
+  transition: opacity 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+}
+
+.book-hotspot:hover::before,
+.book-hotspot:focus-visible::before {
+  border-color: rgba(255, 227, 158, 0.76);
+  box-shadow: 0 0 28px rgba(255, 225, 151, 0.64), inset 0 0 22px rgba(255, 255, 255, 0.36);
+  opacity: 1;
+}
+
+.book-hotspot:focus-visible {
+  outline: none;
+}
+
+.book-hotspot[data-key="note"] { left: 14.4%; }
+.book-hotspot[data-key="family"] { left: 25.25%; }
+.book-hotspot[data-key="story"] { left: 36.1%; }
+.book-hotspot[data-key="diagnosis"] { left: 46.95%; }
+.book-hotspot[data-key="goods"] { left: 57.8%; }
+.book-hotspot[data-key="works"] { left: 68.65%; }
+.book-hotspot[data-key="youtube"] {
+  left: 79.95%;
+  width: 8.8%;
+}
+
+.spark-origin {
+  position: absolute;
+  z-index: 5;
+  width: 10px;
+  height: 10px;
+  left: var(--spark-x, 50%);
+  top: var(--spark-y, 52%);
+  pointer-events: none;
+}
+
+.spark-origin.is-sparking::before,
+.spark-origin.is-sparking::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 239, 177, 0.95);
+  box-shadow:
+    -26px -12px 0 rgba(255, 255, 255, 0.88),
+    -14px 22px 0 rgba(236, 201, 255, 0.78),
+    18px -28px 0 rgba(255, 226, 155, 0.86),
+    30px 18px 0 rgba(196, 232, 231, 0.82),
+    2px -42px 0 rgba(255, 255, 255, 0.9);
+  animation: shelfSpark 980ms ease-out forwards;
+}
+
+.spark-origin.is-sparking::after {
+  width: 5px;
+  height: 5px;
+  box-shadow:
+    -38px 2px 0 rgba(255, 226, 155, 0.82),
+    -8px -30px 0 rgba(255, 255, 255, 0.86),
+    28px -8px 0 rgba(236, 201, 255, 0.74),
+    42px 28px 0 rgba(255, 255, 255, 0.86),
+    0 34px 0 rgba(196, 232, 231, 0.76);
+  animation-duration: 1200ms;
+}
+
+.world-view {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: clamp(8px, 1.8vw, 20px);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.84), rgba(255, 245, 226, 0.5) 34%, transparent 58%),
+    linear-gradient(135deg, #b9a8d1, #efd2dc 46%, #fff0d8);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 760ms ease;
+}
+
+.world-view.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.soft-flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 48%, rgba(255, 255, 255, 0.98), rgba(255, 245, 210, 0.42) 34%, transparent 62%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.world-view.is-active .soft-flash {
+  animation: softFlash 1000ms ease-out forwards;
+}
+
+.close-world {
+  position: fixed;
+  top: clamp(14px, 2.5vw, 28px);
+  right: clamp(14px, 2.5vw, 30px);
+  z-index: 5;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(218, 181, 113, 0.5);
+  border-radius: 50%;
+  color: #715c82;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 10px 26px rgba(78, 54, 86, 0.18), 0 0 18px rgba(255, 231, 168, 0.45);
+  cursor: pointer;
+}
+
+.world-book-image {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 1360px);
+  aspect-ratio: 3 / 2;
+  opacity: 0;
+  transform: translateY(20px) scale(0.97);
+  filter: drop-shadow(0 28px 38px rgba(74, 52, 82, 0.22));
+}
+
+.world-view.is-ready .world-book-image {
+  animation: bookSceneIn 760ms cubic-bezier(0.2, 0.72, 0.2, 1) forwards;
+}
+
+.world-background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.world-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+#world-title {
+  position: absolute;
+  left: 21%;
+  right: 21%;
+  top: 8.6%;
+  margin: 0;
+  color: var(--ink);
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: clamp(1.8rem, 3.15vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.66),
+    0 0 12px rgba(255, 245, 210, 0.8);
+}
+
+.world-card {
+  position: absolute;
+  top: 25.1%;
+  width: 18.6%;
+  height: 47.7%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 1.4vw, 18px);
+  padding: 4.8% 1.55% 4%;
+  border: 0;
+  border-radius: 16px;
+  color: var(--ink);
+  text-align: center;
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.world-view.is-ready .world-card {
+  animation: textRise 680ms ease forwards;
+  animation-delay: var(--card-delay);
+}
+
+.world-card:hover,
+.world-card:focus-visible {
+  outline: none;
+  box-shadow:
+    inset 0 0 0 1px rgba(228, 184, 105, 0.34),
+    0 0 26px rgba(255, 235, 169, 0.52);
+}
+
+.card-1 { left: 12.3%; }
+.card-2 { left: 31.3%; }
+.card-3 { left: 50.4%; }
+.card-4 { left: 69.5%; }
+
+.world-card h3 {
+  margin: 0;
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: clamp(1rem, 1.65vw, 1.65rem);
+  font-weight: 700;
+  line-height: 1.42;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.76),
+    0 0 10px rgba(255, 250, 236, 0.9);
+}
+
+.world-card p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: clamp(0.78rem, 1.05vw, 1.08rem);
+  font-weight: 700;
+  line-height: 1.75;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.78);
+}
+
+.world-card.is-pending {
+  cursor: default;
+}
+
+.back-to-shelf {
+  position: absolute;
+  left: 50%;
+  bottom: 8.4%;
+  z-index: 3;
+  width: 20%;
+  height: 7%;
+  min-width: 190px;
+  border: 1px solid rgba(255, 237, 190, 0.74);
+  border-radius: 999px;
+  color: #fffaf7;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 246, 214, 0.52), transparent 46%),
+    linear-gradient(135deg, rgba(174, 148, 199, 0.9), rgba(219, 166, 188, 0.86));
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: clamp(1rem, 1.45vw, 1.42rem);
+  font-weight: 700;
+  text-shadow:
+    0 2px 8px rgba(70, 47, 91, 0.42),
+    0 0 12px rgba(255, 232, 166, 0.72);
+  transform: translateX(-50%);
+  cursor: pointer;
+  box-shadow:
+    0 10px 22px rgba(89, 61, 109, 0.18),
+    0 0 20px rgba(255, 230, 166, 0.5),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.18);
+}
+
+.back-to-shelf:hover,
+.back-to-shelf:focus-visible {
+  outline: none;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 250, 226, 0.68), transparent 48%),
+    linear-gradient(135deg, rgba(160, 132, 190, 0.94), rgba(213, 150, 181, 0.9));
+  box-shadow:
+    0 12px 26px rgba(89, 61, 109, 0.22),
+    0 0 28px rgba(255, 231, 170, 0.72),
+    inset 0 0 0 1px rgba(255, 244, 211, 0.5);
+}
+
+@keyframes shelfSpark {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.28);
+  }
+  24% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -112%) scale(1.9);
+  }
+}
+
+@keyframes softFlash {
+  0% {
+    opacity: 0;
+    transform: scale(0.65);
+  }
+  28% {
+    opacity: 0.96;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+@keyframes bookSceneIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes textRise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 760px) {
+  .portal {
+    align-items: start;
+    padding: 10px;
+  }
+
+  .art-frame {
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  .book-hotspot {
+    top: 37.6%;
+    height: 34.8%;
+  }
+
+  .world-view {
+    overflow: auto;
+    place-items: start center;
+  }
+
+  body:has(.world-view.is-active) {
+    overflow: auto;
+  }
+
+  .world-book-image {
+    width: 1040px;
+    max-width: none;
+    margin-top: 52px;
+  }
+}
+
+@media (max-width: 520px) {
+  .portal {
+    min-height: auto;
+  }
+
+  .visual-portal {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .art-frame {
+    width: 720px;
+    max-width: none;
+  }
+}

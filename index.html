@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ぷわぽのんの幻想案内所</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="portal">
+    <section class="visual-portal" aria-labelledby="portal-title">
+      <h1 id="portal-title" class="sr-only">ぷわぽのんの幻想案内所</h1>
+
+      <div class="art-frame" id="bookshelf">
+        <img class="main-visual" src="assets/reference-bookshelf.png" alt="ぷわぽのんの幻想案内所の幻想的な本棚">
+        <div class="book-hotspots" aria-label="幻想本棚の入口">
+          <button class="book-hotspot" type="button" data-key="note" aria-label="note"></button>
+          <button class="book-hotspot" type="button" data-key="family" aria-label="家族冒険ファンタジー"></button>
+          <button class="book-hotspot" type="button" data-key="story" aria-label="物語・漫画"></button>
+          <button class="book-hotspot" type="button" data-key="diagnosis" aria-label="診断"></button>
+          <button class="book-hotspot" type="button" data-key="goods" aria-label="データ・グッズ販売"></button>
+          <button class="book-hotspot" type="button" data-key="works" aria-label="作品集"></button>
+          <button class="book-hotspot" type="button" data-key="youtube" aria-label="YouTube"></button>
+        </div>
+        <nav class="top-link-hotspots" aria-label="トップメニュー">
+          <a class="top-link top-link-profile" href="https://note.com/puwapononn/n/nc67a88f3561e?sub_rt=share_pw" aria-label="プロフィール"></a>
+          <a class="top-link top-link-works" href="https://note.com/puwapononn/m/m8700cce6cb6b" aria-label="作品"></a>
+          <button class="top-link top-link-play pending-trigger" type="button" aria-label="小さな遊び"></button>
+          <a class="top-link top-link-line" href="https://line.me/S/shop/sticker/author/6040669/top?lang=ja&utm_source=gnsh_staut" aria-label="LINEスタンプ"></a>
+        </nav>
+        <div class="spark-origin" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="world-view" aria-hidden="true" aria-live="polite">
+      <div class="soft-flash" aria-hidden="true"></div>
+      <button class="close-world" type="button" aria-label="閉じる">×</button>
+
+      <div class="world-book-image" role="dialog" aria-modal="true" aria-labelledby="world-title">
+        <img class="world-background" src="assets/open-book-blank.png" alt="">
+        <div class="world-overlay">
+          <h2 id="world-title"></h2>
+          <div class="world-cards"></div>
+        </div>
+
+        <button class="back-to-shelf" type="button">‹ 本棚へもどる</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
