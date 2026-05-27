@@ -89,7 +89,6 @@ const closeWorldButton = document.querySelector(".close-world");
 const backButton = document.querySelector(".back-to-shelf");
 const sparkOrigin = document.querySelector(".spark-origin");
 const hotspots = document.querySelectorAll(".book-hotspot");
-const pendingTriggers = document.querySelectorAll(".pending-trigger");
 
 let sparkTimer;
 
@@ -100,12 +99,6 @@ hotspots.forEach((hotspot) => {
 
     showSpark(hotspot);
     openWorld(world);
-  });
-});
-
-pendingTriggers.forEach((trigger) => {
-  trigger.addEventListener("click", () => {
-    showPendingNotice();
   });
 });
 
@@ -176,10 +169,6 @@ function closeWorld() {
   worldView.classList.remove("is-ready");
   worldView.classList.remove("is-active");
   worldView.setAttribute("aria-hidden", "true");
-}
-
-function showPendingNotice() {
-  window.alert("準備中です。");
 }
 
 closeWorldButton.addEventListener("click", closeWorld);
