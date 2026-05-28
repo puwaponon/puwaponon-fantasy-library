@@ -89,6 +89,7 @@ const closeWorldButton = document.querySelector(".close-world");
 const backButton = document.querySelector(".back-to-shelf");
 const sparkOrigin = document.querySelector(".spark-origin");
 const hotspots = document.querySelectorAll(".book-hotspot");
+const pendingTopButtons = document.querySelectorAll("[data-pending-top='true']");
 
 let sparkTimer;
 
@@ -99,6 +100,12 @@ hotspots.forEach((hotspot) => {
 
     showSpark(hotspot);
     openWorld(world);
+  });
+});
+
+pendingTopButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    window.alert("準備中です。");
   });
 });
 
