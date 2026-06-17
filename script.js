@@ -11,7 +11,12 @@ const worlds = {
   },
   family: {
     title: "家族冒険ファンタジー",
-    cards: pendingCards()
+    cards: [
+      { title: "小説", familyNovelOpen: true },
+      { title: "漫画", pending: true },
+      { title: "アニメ", pending: true },
+      { title: "イラスト・グッズ", pending: true }
+    ]
   },
   story: {
     title: "物語・漫画の世界",
@@ -148,17 +153,27 @@ function buildCards(cards) {
   return normalizeCards(cards).map((card, index) => {
     const isPending = card.title === "準備中";
     const showsPendingNotice = isPending || card.pending;
-    const tag = card.link ? "a" : "button";
+    const tag = card.link ? "a" : card.familyNovelOpen ? "article" : "button";
     const href = card.link ? ` href="${card.link}"` : "";
-    const type = card.link ? "" : ` type="button"`;
+    const type = card.link || card.familyNovelOpen ? "" : ` type="button"`;
     const pendingAction = showsPendingNotice ? ` data-pending="true"` : "";
+    const familyNovelClass = card.familyNovelOpen ? " has-mini-buttons" : "";
     const className = `world-card card-${index + 1} ${isPending ? "is-pending" : ""}`;
     const description = card.description ? `<p>${card.description}</p>` : "";
+    const familyNovelButtons = card.familyNovelOpen
+      ? `
+        <div class="card-button-list">
+          <a class="mini-card-button" href="https://note.com/puwapononn/m/me0e90301a570">連載小説</a>
+          <button class="mini-card-button" type="button" data-mini-pending="true">挿絵付き全話版</button>
+        </div>
+      `
+      : "";
 
     return `
-      <${tag} class="${className}"${href}${type}${pendingAction} style="--card-delay: ${index * 90}ms">
+      <${tag} class="${className}${familyNovelClass}"${href}${type}${pendingAction} style="--card-delay: ${index * 90}ms">
         <h3>${card.title}</h3>
         ${description}
+        ${familyNovelButtons}
       </${tag}>
     `;
   }).join("");
@@ -182,6 +197,16 @@ closeWorldButton.addEventListener("click", closeWorld);
 backButton.addEventListener("click", closeWorld);
 
 worldCards.addEventListener("click", (event) => {
+  const miniPending = event.target.closest("[data-mini-pending='true']");
+  if (miniPending) {
+    const parentCard = miniPending.closest(".world-card");
+    if (parentCard) {
+      parentCard.innerHTML = "<h3>準備中</h3>";
+      parentCard.classList.add("is-pending");
+    }
+    return;
+  }
+
   const pendingCard = event.target.closest("[data-pending='true']");
   if (pendingCard) {
     pendingCard.innerHTML = "<h3>準備中</h3>";
